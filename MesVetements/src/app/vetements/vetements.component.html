@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+
+            <table class="table table-striped" *ngIf="vetements">
+                <ng-container *ngIf="vetements.length > 0; else noData">
+                    <thead>
+                        <tr> 
+                            <th>N°</th>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Prix</th> 
+                            <th>Date Création</th>
+                            <th>Genre</th>
+                            @if(authService.isAdmin()) {
+                            <th>Delete</th>
+                            <th>Update</th>}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let vet of vetements; let index = index">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ vet.idVet }}</td>
+                            <td>{{ vet.nomVet }}</td>
+                            <td>{{ vet.prix }}</td>
+                            <td>{{ vet.dateCreation | date:'dd/MM/yyyy' }}</td>
+                            <td> {{ vet.genre.nomGen }} </td>
+                            @if(authService.isAdmin()) {
+                            <td><a class="btn btn-danger" (click)="supprimerVetement(vet)">Supprimer</a></td>
+                            <td><a class="btn btn-success" [routerLink]="['/updateVetement', vet.idVet]">Modifier</a></td>
+                            }
+                        </tr>
+                    </tbody>
+                </ng-container>
+            </table>
+
+            <!-- Template à afficher si aucun produit -->
+            <ng-template #noData>
+                <h5 class="text-center mt-3">Aucun produit trouvé !</h5>
+            </ng-template>
+
+        </div>
+    </div>
+</div>

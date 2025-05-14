@@ -1,0 +1,50 @@
+<div class="container">
+
+    <div class="container">
+        <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+            <label>Genres </label>
+            <select class="form-control form-control-lg" id="idGen" name="idGen" [(ngModel)]="IdGenre" (change)="onChange()">
+                @for(gen of genres;track gen.idGen)
+                {
+                <option value="{{gen.idGen}}"> {{gen.nomGen}} </option>
+                }
+            </select>
+        </div>
+    </div>    
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nom</th>
+              <th>Prix</th>
+              <th>Date Création</th>
+              <th>Genre</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (vet of vetements; track vet.idVet) {
+              <tr>
+                <td>{{ vet.idVet }}</td>
+                <td>{{ vet.nomVet }}</td>
+                <td>{{ vet.prix }}</td>
+                <td>{{ vet.dateCreation | date:'dd/MM/yyyy' }}</td>
+                @if (vet.genre) {
+                  <td>{{ vet.genre.nomGen }}</td>
+                } @else {
+                  <td>PAS DE CATEGORIE</td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+<!--
+    <td><a class="btn btn-danger"
+    (click)="supprimerProduit(produit)">Supprimer</a></td>
+    <td><a class="btn btn-success"
+    [routerLink]="['/updateProduit',produit.idProduit]">Modifier</a></td> -->

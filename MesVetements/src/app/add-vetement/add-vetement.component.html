@@ -1,0 +1,43 @@
+<div class="container">
+    <div>
+        <h2>Ajouter un Vetement :</h2>
+    </div>
+    <form>
+
+        <div hidden class="col-sm-2 col-md-2 col-lg-2">
+            <label>ID Produit</label>
+            <input type="text" [(ngModel)]="newVetement.idVet" name="idVet" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Nom Produit</label>
+            <input type="text" [(ngModel)]="newVetement.nomVet" name="nomVet" class="form-control">
+        </div>
+
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Prix Produit</label>
+            <input type="number" [(ngModel)]="newVetement.prix" name="prix" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Date création</label>
+            <input type="date" [(ngModel)]="newVetement.dateCreation" name="dateCreation" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Categorie</label>
+            <select class="form-control form-control-lg" id="idGen" name="idGen" [(ngModel)]="newIdGen">
+                @for(gen of genres; track gen.idGen){
+                <option [value]="gen.idGen"> {{gen.nomGen}} </option>
+                }
+            </select>
+        </div>
+        
+        <div class="mt-2">
+            <button type="submit" (click)="addVetement()" class="btn btn-success">Ajouter</button>
+            <div>
+                <h3>{{message}}</h3>
+            </div>
+        </div>
+    </form>
+</div>

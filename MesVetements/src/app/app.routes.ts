@@ -8,6 +8,7 @@ import { ListeGenresComponent } from './liste-genres/liste-genres.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { vetementGuard } from './vetement.guard';
+import { RegisterComponent } from './register/register.component';
 
 
 export const routes: Routes = [
@@ -19,5 +20,6 @@ export const routes: Routes = [
     {path: "listeGneres", component : ListeGenresComponent},
     {path: "login" , component : LoginComponent},
     {path:"app-forbidden",component : ForbiddenComponent},
+    {path:'register',component:RegisterComponent},
     {path:"",redirectTo: "vetements",pathMatch: "full"}
 ];

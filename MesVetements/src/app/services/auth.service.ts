@@ -99,4 +99,8 @@ export class AuthService {
       }
     });
   }*/
+  registerUser(user: User) {
+    return this.http.post<User>(this.apiURL + '/register', user,
+      { observe: 'response' });
+  }
 }

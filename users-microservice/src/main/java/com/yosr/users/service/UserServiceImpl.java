@@ -1,6 +1,8 @@
 package com.yosr.users.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +12,8 @@ import com.yosr.users.entities.Role;
 import com.yosr.users.entities.User;
 import com.yosr.users.repos.RoleRepository;
 import com.yosr.users.repos.UserRepository;
+import com.yosr.users.service.exceptions.EmailAlreadyExistsException;
+import com.yosr.users.service.register.RegistrationRequest;
 
 import jakarta.transaction.Transactional;
 
@@ -52,4 +56,26 @@ public class UserServiceImpl implements UserService {
 		
 		return userRep.findAll();
 	}
+
+	@Override
+	public User registerUser(RegistrationRequest request) {
+		Optional<User> optionaluser = userRep.findByEmail(request.getEmail());
+		if (optionaluser.isPresent())
+			throw new EmailAlreadyExistsException("email déjà existant!");
+		User newUser = new User();  
+		newUser.setUsername(request.getUsername());
+		newUser.setEmail(request.getEmail());
+
+		newUser.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+		newUser.setEnabled(false);
+		userRep.save(newUser);
+		// ajouter à newUser le role par défaut USER
+		Role r = roleRep.findByRole("USER");
+		List<Role> roles = new ArrayList<>();
+		roles.add(r);
+		newUser.setRoles(roles);
+
+		return userRep.save(newUser);
+	}
+
 }

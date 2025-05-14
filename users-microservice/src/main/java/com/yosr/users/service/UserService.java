@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yosr.users.entities.Role;
 import com.yosr.users.entities.User;
+import com.yosr.users.service.register.RegistrationRequest;
 
 public interface UserService {
 	
@@ -11,6 +12,8 @@ public interface UserService {
 	User findUserByUsername(String username);
 	Role addRole(Role role);
 	User addRoleToUser(String username, String rolename);
+	
+	User registerUser(RegistrationRequest request);
 	
 	List<User> findAllUsers();
 }
